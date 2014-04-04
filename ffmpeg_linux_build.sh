@@ -1,4 +1,4 @@
-# packages: libssl-dev checkinstall autoconf automake build-essential libass-dev libgpac-dev libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libx11-dev libxext-dev libxfixes-dev pkg-config texi2html zlib1g-dev git
+# packages: libssl-dev checkinstall autoconf automake build-essential libass-dev libgpac-dev libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libx11-dev libxext-dev libxfixes-dev pkg-config texi2html zlib1g-dev git unzip
 
 build_yasm() {
 	cd ~/ffmpeg_sources
@@ -56,7 +56,7 @@ build_ffmpeg () {
 	export PKG_CONFIG_PATH
 	./configure --prefix="$HOME/ffmpeg_build" --extra-cflags="-I$HOME/ffmpeg_build/include" \
 	   --extra-ldflags="-L$HOME/ffmpeg_build/lib" --bindir="$HOME/bin" --extra-libs="-ldl" --enable-gpl \
-	   --enable-libfdk_aac --enable-libx264 --enable-nonfree --enable-librtmp
+	   --enable-libfdk-aac --enable-libx264 --enable-nonfree --enable-librtmp
 	make
 	make install
 	make distclean
