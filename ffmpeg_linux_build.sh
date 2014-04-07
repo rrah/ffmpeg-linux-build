@@ -19,7 +19,7 @@ build_yasm() {
 	wget http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz
 	tar xzvf yasm-1.2.0.tar.gz
 	cd yasm-1.2.0
-	./configure --prefix="/tmp/ffmpeg_build" --bindir="/usr/local/bin"
+	./configure --prefix="/usr/local" --bindir="/usr/local/bin"
 	make
 	make install
 	make distclean
@@ -33,7 +33,7 @@ build_x264() {
 	wget http://download.videolan.org/pub/x264/snapshots/last_x264.tar.bz2
 	tar xjvf last_x264.tar.bz2
 	cd x264-snapshot*
-	./configure --prefix="/tmp/ffmpeg_build" --bindir="/usr/local/bin" --enable-static
+	./configure --prefix="/usr/local/" --bindir="/usr/local/bin" --enable-static
 	make
 	make install
 	make distclean
@@ -46,7 +46,7 @@ build_fdk_aac() {
 	unzip fdk-aac.zip
 	cd mstorsjo-fdk-aac*
 	autoreconf -fiv
-	./configure --prefix="/tmp/ffmpeg_build" --disable-shared
+	./configure --prefix="/usr/local/" --disable-shared
 	make
 	make install
 	make distclean
@@ -72,7 +72,7 @@ build_ffmpeg () {
 	cd ffmpeg
 	PKG_CONFIG_PATH="/tmp/ffmpeg_build/lib/pkgconfig"
 	export PKG_CONFIG_PATH
-	./configure --prefix="/tmp/ffmpeg_build" --extra-cflags="-I/usr/local/include" \
+	./configure --prefix="/usr/local/" --extra-cflags="-I/usr/local/include" \
 	   --extra-ldflags="-L/usr/local/lib" --bindir="/usr/local/bin" --extra-libs="-ldl" --enable-gpl \
 	   --enable-libfdk-aac --enable-libx264 --enable-nonfree --enable-librtmp
 	make
