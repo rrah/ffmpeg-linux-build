@@ -66,14 +66,14 @@ build_rtmp() {
 
 
 build_ffmpeg () {
-	cd /tmp/ffmpeg_sources
+	cd /tmp/ffmpeg_source
 	wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
 	tar xjvf ffmpeg-snapshot.tar.bz2
 	cd ffmpeg
-	PKG_CONFIG_PATH="/tmp/ffmpeg_build/lib/pkgconfig"
-	export PKG_CONFIG_PATH
+#	PKG_CONFIG_PATH="/tmp/ffmpeg_build/lib/pkgconfig"
+#	export PKG_CONFIG_PATH
 	./configure --prefix="/usr/local/" --extra-cflags="-I/usr/local/include" \
-	   --extra-ldflags="-L/usr/local/lib" --bindir="/usr/local/bin" --extra-libs="-ldl" --enable-gpl \
+	   --extra-ldflags="-L/usr/local/lib, -Wl,-rpath,/usr/local/lib" --bindir="/usr/local/bin" --extra-libs="-ldl" --enable-gpl \
 	   --enable-libfdk-aac --enable-libx264 --enable-nonfree --enable-librtmp
 	make
 	make install
@@ -83,8 +83,8 @@ build_ffmpeg () {
 
 main(){
 	check_missing_packages
-	mkdir /tmp/ffmpeg_sources
-	cd /tmp/ffmpeg_sources
+	mkdir /tmp/ffmpeg_source
+	cd /tmp/ffmpeg_source
 	build_yasm
 	build_x264
 	build_rtmp
