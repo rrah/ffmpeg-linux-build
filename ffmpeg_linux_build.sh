@@ -80,6 +80,7 @@ build_ffmpeg () {
 main(){
 	check_missing_packages
 	mkdir ffmpeg_sources
+	cd ffmpeg_sources
 	build_yasm
 	build_x264
 	build_rtmp
