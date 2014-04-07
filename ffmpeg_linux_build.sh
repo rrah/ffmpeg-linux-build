@@ -15,60 +15,64 @@ check_missing_packages () {
 }
 
 build_yasm() {
+	cd /tmp/ffmpeg_source
 	wget http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz
 	tar xzvf yasm-1.2.0.tar.gz
 	cd yasm-1.2.0
-	./configure --prefix="../ffmpeg_build" --bindir="/usr/local/bin"
+	./configure --prefix="/tmp/ffmpeg_build" --bindir="/usr/local/bin"
 	make
 	make install
 	make distclean
 	export "PATH=$PATH:/usr/bin"
-	cd ../
+	cd /tmp/ffmpeg_source
 }
 
 
 build_x264() {
+	cd /tmp/ffmpeg_source	
 	wget http://download.videolan.org/pub/x264/snapshots/last_x264.tar.bz2
 	tar xjvf last_x264.tar.bz2
 	cd x264-snapshot*
-	./configure --prefix="../ffmpeg_build" --bindir="/usr/local/bin" --enable-static
+	./configure --prefix="/tmp/ffmpeg_build" --bindir="/usr/local/bin" --enable-static
 	make
 	make install
 	make distclean
-	cd ../
+	cd /tmp/ffmpeg_source
 }
 
 build_fdk_aac() {
+	cd /tmp/ffmpeg_source
 	wget -O fdk-aac.zip https://github.com/mstorsjo/fdk-aac/zipball/master
 	unzip fdk-aac.zip
 	cd mstorsjo-fdk-aac*
 	autoreconf -fiv
-	./configure --prefix="../ffmpeg_build" --disable-shared
+	./configure --prefix="/tmp/ffmpeg_build" --disable-shared
 	make
 	make install
 	make distclean
-	cd ../
+	cd /tmp/ffmpeg_source
 }
 
 
 build_rtmp() {
+	cd /tmp/ffmpeg_source
 	git clone git://git.ffmpeg.org/rtmpdump
 	cd rtmpdump
 	make
 	sudo checkinstall --pkgname=rtmpdump --pkgversion="2:$(date +%Y%m%d%H%M)-git" --backup=no \
     --deldoc=yes --fstrans=no --default
-	cd ../
+	cd /tmp/ffmpeg_source
 }
 
 
 build_ffmpeg () {
-	cd ffmpeg_sources
+	cd /tmp/ffmpeg_sources
 	wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
 	tar xjvf ffmpeg-snapshot.tar.bz2
 	cd ffmpeg
-	PKG_CONFIG_PATH="../../ffmpeg_build/lib/pkgconfig"
+	PKG_CONFIG_PATH="/tmp/ffmpeg_build/lib/pkgconfig"
 	export PKG_CONFIG_PATH
-	./configure --prefix="../../ffmpeg_build" --extra-cflags="-I/usr/local/include" \
+	./configure --prefix="/tmp/ffmpeg_build" --extra-cflags="-I/usr/local/include" \
 	   --extra-ldflags="-L/usr/local/lib" --bindir="/usr/local/bin" --extra-libs="-ldl" --enable-gpl \
 	   --enable-libfdk-aac --enable-libx264 --enable-nonfree --enable-librtmp
 	make
@@ -79,8 +83,8 @@ build_ffmpeg () {
 
 main(){
 	check_missing_packages
-	mkdir ffmpeg_sources
-	cd ffmpeg_sources
+	mkdir /tmp/ffmpeg_sources
+	cd /tmp/ffmpeg_sources
 	build_yasm
 	build_x264
 	build_rtmp
