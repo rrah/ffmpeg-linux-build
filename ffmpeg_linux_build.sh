@@ -18,11 +18,11 @@ build_yasm() {
 	wget http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz
 	tar xzvf yasm-1.2.0.tar.gz
 	cd yasm-1.2.0
-	./configure --prefix="$HOME/ffmpeg_build" --bindir="$HOME/bin"
+	./configure --prefix="../ffmpeg_build" --bindir="/usr/local/bin"
 	make
 	make install
 	make distclean
-	export "PATH=$PATH:$HOME/bin"
+	export "PATH=$PATH:/usr/bin"
 	cd ../
 }
 
@@ -31,7 +31,7 @@ build_x264() {
 	wget http://download.videolan.org/pub/x264/snapshots/last_x264.tar.bz2
 	tar xjvf last_x264.tar.bz2
 	cd x264-snapshot*
-	./configure --prefix="$HOME/ffmpeg_build" --bindir="$HOME/bin" --enable-static
+	./configure --prefix="../ffmpeg_build" --bindir="/usr/local/bin" --enable-static
 	make
 	make install
 	make distclean
@@ -43,7 +43,7 @@ build_fdk_aac() {
 	unzip fdk-aac.zip
 	cd mstorsjo-fdk-aac*
 	autoreconf -fiv
-	./configure --prefix="$HOME/ffmpeg_build" --disable-shared
+	./configure --prefix="../ffmpeg_build" --disable-shared
 	make
 	make install
 	make distclean
@@ -66,10 +66,10 @@ build_ffmpeg () {
 	wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
 	tar xjvf ffmpeg-snapshot.tar.bz2
 	cd ffmpeg
-	PKG_CONFIG_PATH="$HOME/ffmpeg_build/lib/pkgconfig"
+	PKG_CONFIG_PATH="../../ffmpeg_build/lib/pkgconfig"
 	export PKG_CONFIG_PATH
-	./configure --prefix="$HOME/ffmpeg_build" --extra-cflags="-I$HOME/ffmpeg_build/include" \
-	   --extra-ldflags="-L$HOME/ffmpeg_build/lib" --bindir="$HOME/bin" --extra-libs="-ldl" --enable-gpl \
+	./configure --prefix="../../ffmpeg_build" --extra-cflags="-I/usr/local/include" \
+	   --extra-ldflags="-L/usr/local/lib" --bindir="/usr/local/bin" --extra-libs="-ldl" --enable-gpl \
 	   --enable-libfdk-aac --enable-libx264 --enable-nonfree --enable-librtmp
 	make
 	make install
@@ -86,7 +86,7 @@ main(){
 	build_rtmp
 	build_fdk_aac
 	build_ffmpeg
-	echo "Binaries are in somewhere"
+	echo "Binaries are installed to /usr/local/bin/"
 	
 }
 
