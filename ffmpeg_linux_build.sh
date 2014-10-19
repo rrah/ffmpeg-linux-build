@@ -1,7 +1,7 @@
-# packages: librtmp-dev libssl-dev autoconf automake build-essential libass-dev libgpac-dev libsdl1.2-dev libtool libva-dev libvdpau-dev pkg-config texi2html zlib1g-dev git unzip
+# packages: librtmp-dev libssl-dev build-essential libass-dev libgpac-dev libsdl1.2-dev libtool libva-dev libvdpau-dev pkg-config texi2html zlib1g-dev git unzip
 
 check_missing_packages () {
-  local check_packages=('checkinstall' 'autoconf' 'automake' 'libtool' 'pkg-config' 'texi2html' 'git' 'unzip' 'librtmp-dev')
+  local check_packages=('libtool' 'pkg-config' 'git' 'unzip')
   for package in "${check_packages[@]}"; do
     type -P "$package" >/dev/null || missing_packages=("$package" "${missing_packages[@]}")
   done
