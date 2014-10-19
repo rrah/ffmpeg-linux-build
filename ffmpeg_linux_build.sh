@@ -1,18 +1,6 @@
 # packages: librtmp-dev libssl-dev build-essential libass-dev libgpac-dev libsdl1.2-dev libtool libva-dev libvdpau-dev pkg-config texi2html zlib1g-dev git unzip
 
-check_missing_packages () {
-  local check_packages=('libtool' 'pkg-config' 'git' 'unzip')
-  for package in "${check_packages[@]}"; do
-    type -P "$package" >/dev/null || missing_packages=("$package" "${missing_packages[@]}")
-  done
-
-  if [[ -n "${missing_packages[@]}" ]]; then
-    clear
-    echo "Could not find the following execs (svn is actually package subversion, makeinfo is actually package texinfo if you're missing them): ${missing_packages[@]}"
-    echo 'Install the missing packages before running this script.'
-    exit 1
-  fi
-}
+apt-get install librtmp-dev build-essential libtool git unzip
 
 build_yasm() {
 	cd /tmp/ffmpeg_source
