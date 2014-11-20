@@ -1,6 +1,6 @@
 # packages: librtmp-dev libssl-dev build-essential libass-dev libgpac-dev libsdl1.2-dev libtool libva-dev libvdpau-dev pkg-config texi2html zlib1g-dev git unzip
 
-apt-get install librtmp-dev build-essential libtool git unzip
+apt-get install librtmp-dev build-essential libtool git unzip pkg-config
 
 build_yasm() {
 	cd /tmp/ffmpeg_source
@@ -47,10 +47,10 @@ build_ffmpeg () {
 	wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
 	tar xjvf ffmpeg-snapshot.tar.bz2
 	cd ffmpeg
-#	PKG_CONFIG_PATH="/tmp/ffmpeg_build/lib/pkgconfig"
-#	export PKG_CONFIG_PATH
+	PKG_CONFIG_PATH="/tmp/ffmpeg_build/lib/pkgconfig"
+	export PKG_CONFIG_PATH
 	./configure --prefix="/usr/local/" --extra-cflags="-I/usr/local/include" \
-	   --extra-ldflags="-L/usr/local/lib, -Wl,-rpath,/usr/local/lib" --bindir="/usr/local/bin" --extra-libs="-ldl" --enable-gpl \
+	   --extra-ldflags="-L/usr/local/lib, -L/usr/lib, -Wl,-rpath,/usr/local/lib" --bindir="/usr/local/bin" --extra-libs="-ldl" --enable-gpl \
 	   --enable-libfdk-aac --enable-libx264 --enable-nonfree --enable-librtmp
 	make
 	make install
@@ -59,7 +59,6 @@ build_ffmpeg () {
 }
 
 main(){
-	check_missing_packages
 	mkdir /tmp/ffmpeg_source
 	cd /tmp/ffmpeg_source
 	build_yasm
