@@ -1,6 +1,6 @@
 # packages: librtmp-dev libssl-dev build-essential libass-dev libgpac-dev libsdl1.2-dev libtool libva-dev libvdpau-dev pkg-config texi2html zlib1g-dev git unzip
 
-apt-get install librtmp-dev build-essential libtool git unzip pkg-config
+apt-get install librtmp-dev build-essential libtool git unzip pkg-config autoconfig
 
 build_yasm() {
 	cd /tmp/ffmpeg_source
