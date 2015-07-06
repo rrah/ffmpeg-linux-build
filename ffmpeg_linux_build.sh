@@ -4,9 +4,9 @@ apt-get install librtmp-dev build-essential libtool git unzip pkg-config autocon
 
 build_yasm() {
 	cd /tmp/ffmpeg_source
-	wget http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz
-	tar xzvf yasm-1.2.0.tar.gz
-	cd yasm-1.2.0
+	wget http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
+	tar xzvf yasm-1.3.0.tar.gz
+	cd yasm-1.3.0
 	./configure --prefix="/usr/local" --bindir="/usr/local/bin"
 	make
 	make install
@@ -30,10 +30,9 @@ build_x264() {
 
 build_fdk_aac() {
 	cd /tmp/ffmpeg_source
-	wget -O fdk-aac.zip https://github.com/mstorsjo/fdk-aac/zipball/master
-	unzip fdk-aac.zip
-	cd mstorsjo-fdk-aac*
-	autoreconf -fiv
+	wget http://sourceforge.net/projects/opencore-amr/files/latest/download?source=files
+	tar xzvf fdk-aac*
+	cd fdk-aac*
 	./configure --prefix="/usr/local/" --disable-shared
 	make
 	make install
@@ -63,7 +62,6 @@ main(){
 	cd /tmp/ffmpeg_source
 	build_yasm
 	build_x264
-	build_rtmp
 	build_fdk_aac
 	build_ffmpeg
 	echo "Binaries are installed to /usr/local/bin/"
