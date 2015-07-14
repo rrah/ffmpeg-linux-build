@@ -30,7 +30,7 @@ build_x264() {
 
 build_fdk_aac() {
 	cd /tmp/ffmpeg_source
-	wget http://sourceforge.net/projects/opencore-amr/files/latest/download?source=files
+	wget http://downloads.sourceforge.net/project/opencore-amr/fdk-aac/fdk-aac-0.1.4.tar.gz
 	tar xzvf fdk-aac*
 	cd fdk-aac*
 	./configure --prefix="/usr/local/" --disable-shared
